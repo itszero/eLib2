@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  include FaceboxRender
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
@@ -12,4 +13,16 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
+  
+  before_filter :get_sessions
+  after_filter :set_sessions
+  
+  private
+  def get_sessions
+    @current_user = session[:current_user]
+  end
+  
+  def set_sessions
+    session[:current_user] = @currnet_user
+  end
 end

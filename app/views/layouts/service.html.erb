@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<link rel="stylesheet" href="/stylesheets/screen.css" type="text/css" media="screen, projection" charset="utf-8">
+		<link rel="stylesheet" href="/stylesheets/print.css" type="text/css" media="print" charset="utf-8">
+		<!--[if IE]><link rel="stylesheet" href="/stylesheets/ie.css" type="text/css" media="screen, projection"><![endif]-->
+		<link rel="stylesheet" href="/webuikit-css/webuikit.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+		<link rel="stylesheet" href="/facebox/facebox.css" type="text/css" media="screen" charset="utf-8">
+		<%= stylesheet_link_tag('stickies') %>
+		<script type="text/javascript" src="/javascripts/jquery.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/javascripts/jquery-ui.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/javascripts/jrails.js" charset="utf-8"></script>
+		<script type="text/javascript" src="/facebox/facebox.js" charset="utf-8"></script>
+	</head>
+	<body>
+		<div class="container" id="header">
+			<div class="span-13" id="header-img">
+				<img src="/images/img_sitetitle.png"/>
+			</div>
+			<div class="span-11 last" id="header-title">
+				<ul>
+					<li class="menu-current">首頁</li>
+					<li>搜尋書籍</li>
+					<li>讀者服務</li>
+					<li>聯絡我們</li>
+					<% if @current_user && @current_user.permission == 2 %>
+					<li class="menu-backstage">後臺區</li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="span-23 last" id="content">
+				<div class="container">
+					<div class="span-23 last" id="session_bar">
+						<% if @current_user %>
+						<% else %>
+							使用個人化服務，請先 <%= facebox_link_to "登入 <img src=\"/images/img_power.png\" width=\"20\" height=\"20\" align=\"top\" />", :url => '/login' %> 
+						<% end %>
+					</div>
+				</div>
+				<div class="container">
+					<div class="span-23 last">
+						<%=render_stickies :effect => "blindUp", :close => '關閉'%>
+					</div>
+				</div>
+				<%=yield%>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="span-24 last" id="footer">
+				eLib<sup>2</sup>, ZZHC 2008. Powered by Ruby on Rails.
+			</div>
+		</div>		
+	</body>
+</html>

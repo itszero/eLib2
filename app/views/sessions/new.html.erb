@@ -1,0 +1,13 @@
+<div id="login_box" style="font-size: 10pt;">
+	<div style="margin: 0 2px 0 0; background-color: #7C6255; font-size: 1.5em; color:#fff; line-height: 2em; padding: 5px; -webkit-border-radius: 10px; -moz-border-radius: 10px; margin-bottom: 5px;">eLib^2 登入</div>
+	
+  	<%= render_stickies %>
+
+	<% form_remote_tag :url => session_path, :style => 'padding: 10px;', :id => 'login' do -%>
+		<p><label for="user">使用者名稱</label><br/><input type="text" name="login" value="" id="login" style="font-size: 22pt"></p>
+		<p><label for="user">密碼</label><br/><input type="password" name="password" value="" id="password" style="font-size: 22pt"></p>
+		<p><%= label_tag 'remember_me', '記住我' %>
+		<%= check_box_tag 'remember_me', '1', @remember_me %></p>
+		<p><input type="submit" value="登入 &rarr;"></p>
+	<% end-%>
+</div>

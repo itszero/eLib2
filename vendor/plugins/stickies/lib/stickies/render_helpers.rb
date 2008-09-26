@@ -69,7 +69,11 @@ module Stickies
     def render_stickie_close_area (message, options)
       return "" unless options[:close]
       html = %Q(<div class="stickies_close_area">)
-      html << link_to_function(options[:close], javascript_to_close_stickie(message, options), options[:link_html])
+      if options[:link_html] != {}
+        html << link_to_function(options[:link_html], javascript_to_close_stickie(message, options))
+      else
+        html << link_to_function(options[:close], javascript_to_close_stickie(message, options), options[:link_options])
+      end
       html << %Q(</div>)
       html
     end
@@ -143,7 +147,8 @@ module Stickies
     # Render the JavaScript that is necessary to close the stickie div.
     def javascript_to_remove_stickie_html (div_id, options)
       if options[:effect]
-        update_page {|p| p.visual_effect(options[:effect], div_id, options[:effect_options])}
+        #update_page {|p| p.visual_effect(options[:effect], div_id, options[:effect_options])}
+        update_page { |p| p << "$('##{div_id}').#{options[:effect]}(#{options[:effect_options]});"}
       else
         update_page {|p| p.hide(div_id)}
       end

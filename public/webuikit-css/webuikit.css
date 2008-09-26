@@ -1,0 +1,232 @@
+/* 
+
+	Web UI Kit 1.0
+	Leo Lin | http://jiwostudio.com
+	Copyright (c) 2008. All rights Reserved.
+	Based on http://www.oscaralexander.com/tutorials/how-to-make-sexy-buttons-with-css.html
+
+*/
+
+/* @group General */
+
+a {
+	outline: none;
+	border: none;
+}
+
+.clearfix {
+	width: 100%;
+	clear: both;
+	overflow: visible;
+}
+
+/* iepngfix http://www.twinhelix.com/ */
+
+img { behavior: url(/webuikit-css/iepngfix.htc) }
+
+
+/* @end */
+
+/* @group Buttons */
+
+/* normal */
+
+a.button {
+	float: left;
+	height: 24px;
+	background: url(../webuikit-img/buttons/normal_right.png) no-repeat right top;
+	padding-right: 11px;
+	text-decoration: none;
+}
+
+a.button span {
+	display: block;
+	padding-left: 11px;
+	background: url(../webuikit-img/buttons/normal_left.png) no-repeat left top;
+	z-index: 1;
+}
+
+a.button span span {
+	font-size: 12px;
+	line-height: 24px;
+	text-shadow: none;
+	color: white;
+	display: block;
+	background-position: -100px top;
+	cursor: pointer;
+	padding-right: 3px;
+	padding-left: 3px;
+	z-index: 2;
+}
+
+a.button:active {
+	background-position: right bottom;
+}
+
+a.button:active span {
+	background-position: left bottom;
+}
+
+a.button:active span span {
+	background-position: -11px bottom;
+}
+
+/* alt */
+
+a.button.alt {
+	background-image: url(../webuikit-img/buttons/alt_right.png);
+}
+
+a.button.alt span {
+	background-image: url(../webuikit-img/buttons/alt_left.png);
+}
+
+/*pink*/
+
+a.button.pink {
+	background-image: url(../webuikit-img/buttons/pink_right.png);
+}
+
+a.button.pink span {
+	background-image: url(../webuikit-img/buttons/pink_left.png);
+}
+
+/*green*/
+
+a.button.green {
+	background-image: url(../webuikit-img/buttons/green_right.png);
+}
+
+a.button.green span {
+	background-image: url(../webuikit-img/buttons/green_left.png);
+}
+
+/*purple*/
+
+a.button.purple {
+	background-image: url(../webuikit-img/buttons/purple_right.png);
+}
+
+a.button.purple span {
+	background-image: url(../webuikit-img/buttons/purple_left.png);
+}
+
+/*dark*/
+
+a.button.dark {
+	background-image: url(../webuikit-img/buttons/dark_right.png);
+}
+
+a.button.dark span {
+	background-image: url(../webuikit-img/buttons/dark_left.png);
+}
+
+/*milk*/
+
+a.button.milk {
+	background-image: url(../webuikit-img/buttons/milk_right.png);
+}
+
+a.button.milk span {
+	background-image: url(../webuikit-img/buttons/milk_left.png);
+}
+
+
+
+/* @end */
+
+/* @group Glyphs + text */
+
+a.button.back span span, a.button.back:active span span {
+	background: url(../webuikit-img/glyphs/back.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.check span span, a.button.check:active span span {
+	background: url(../webuikit-img/glyphs/check.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.left span span, a.button.left:active span span {
+	background: url(../webuikit-img/glyphs/left.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.right span span, a.button.right:active span span {
+	background: url(../webuikit-img/glyphs/right.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.up span span, a.button.up:active span span {
+	background: url(../webuikit-img/glyphs/up.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.down span span, a.button.down:active span span {
+	background: url(../webuikit-img/glyphs/down.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.plus span span, a.button.plus:active span span {
+	background: url(../webuikit-img/glyphs/plus.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.minus span span, a.button.minus:active span span {
+	background: url(../webuikit-img/glyphs/minus.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.heart span span, a.button.heart:active span span {
+	background: url(../webuikit-img/glyphs/heart.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.star span span, a.button.star:active span span {
+	background: url(../webuikit-img/glyphs/star.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.x span span, a.button.x:active span span {
+	background: url(../webuikit-img/glyphs/x.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+a.button.thumb span span, a.button.thumb:active span span {
+	background: url(../webuikit-img/glyphs/thumb.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
+
+
+
+/* @end */
+
+/* @group Glyphs without text */
+
+a.button.no-text span span {
+	font-size: 0;
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+a.button.no-text:active span span {
+	padding-right: 8px;
+	padding-left: 8px;
+}
+
+
+
+
+/* @end */
