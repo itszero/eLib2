@@ -37,9 +37,9 @@
 				<div class="container">
 					<div class="span-23 last" id="session_bar">
 						<% if @current_user %>
-						您好，<%=@current_user.nickname || @current_user.name || @current_user.login%>(<%=@current_user.student_id%>) <% if @current_user.permission == 2 %><span style="color: red;">工作人員</span> <%end%>： <a href="/logout">登出 <img src="/images/img_power.png" width="20" height="20" align="top"></a>
+						 <a href="/logout"><img src="/images/img_power.png" width="20" height="20">登出</a> 您好，<%=@current_user.nickname || @current_user.name || @current_user.login%>(<%=@current_user.student_id%>) <% if @current_user.permission == 2 %><span style="color: red;">工作人員</span><% end %>
 						<% else %>
-							使用個人化服務，請先 <%= facebox_link_to "登入 <img src=\"/images/img_power.png\" width=\"20\" height=\"20\" align=\"top\" />", :url => '/login' %> 
+							<%= facebox_link_to "登入 <img src=\"/images/img_power.png\" width=\"20\" height=\"20\" align=\"top\" />", :url => '/login' %> 後才能使用使用個人化服務。
 						<% end %>
 					</div>
 				</div>

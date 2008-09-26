@@ -1,0 +1,9 @@
+<form action="/news/edit" method="post" accept-charset="utf-8" id="news-edit-form">
+	<div style="float: left;">公告標題<br/><input type="text" name="title" value="<%=@news.title%>" id="title"></div>
+	<div style="float: left;">公告日期<br/><input type="text" name="date" value="<%=@news.created_at.strftime("%Y-%m-%d")%>" id="date"></div>
+	<div style="clear: both;">&nbsp;</div>
+	<p>公告內容<br/><textarea name="content" rows="8"><%=@news.content%></textarea></p>
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+	<input type="hidden" name="id" value="<%=@news.id%>" id="id">
+	<p class="clearfix"><a href="#" class="button normal check" onclick="$('#news-edit-form').submit();  this.blur(); return false;" style="margin-right: 10px;"><span><span>儲存修改</span></span></a> <a href="#" class="button dark x" onclick="restore_news(<%=@news.id%>); return false;"><span><span>取消</span></span></a></p>
+</form>

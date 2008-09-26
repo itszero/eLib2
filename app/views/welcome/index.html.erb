@@ -9,7 +9,27 @@
   <embed sap-type="flash" sap-mode="checked" sap="flash" src="/coverflow/iTunesAlbumArt.swf" quality="high" bgcolor="#000000" name="iTunesAlbumArt" allowscriptaccess="always" allowfullscreen="false" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer" align="middle" width="900" height="329">
 </object>          
 </div>
+
 <div class="container" style="margin-top: 5px;">
-	<div class="span-11" style="padding: 5px; border-right: 2px dashed #000; height: 300px;"></div>
-	<div class="span-12 last"></div>
+	<div class="span-11" style="padding-right: 5px; border-right: 2px dashed #000;">
+		<h2>圖書館部落格</h2>
+		<ul style="margin-left: 30px;">
+		<% @news.each do |news| %>
+			<li id="news-<%=news.id%>"><a href="/news/show/<%=news.id%>"><%=news.title%></a> - <%=news.created_at.strftime("%Y-%m-%d")%></li>
+		<% end %>
+		</ul>
+		<%=link_to '更多消息...', :controller => 'news'%>
+	</div>
+	<div class="span-12 last">
+		<% if @current_user %>
+		<h2>資訊快遞</h2>
+		<ul style="margin-left: 30px;">
+			<li>您目前共借閱 5 本書，2 本書即將到期。</li>
+			<li>您還需要繳交 3 篇讀書心得。</li>
+		</ul>
+		<%=link_to '詳細資訊...', :controller => 'reader'%>
+		<% else %>
+		<h2>熱門書籍</h2>
+		<% end %>
+	</div>
 </div>

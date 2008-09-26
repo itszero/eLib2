@@ -2,14 +2,23 @@
 body {
 	background-color: #7C6255;
 	font-family: Helvetica, Verdana, Arial, DFHeiStd-W5, HiraKakuPro-W3, LiHei Pro, Microsoft JhengHei;
+	font-size: 11pt;
+}
+
+h1 {
+	border-bottom: 1px solid #CCC;
+}
+
+h2 {
+	margin: 0;
 }
 
 #content {
 	background-color: #FFF;
-	-moz-border-radius: 10px;
-	-webkit-border-radius: 10px;
 	padding: 10px;
 	margin-top: -10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
 }
 
 #session_bar {
@@ -33,6 +42,7 @@ body {
 	border-top: 1px solid #FFF;
 	border-right: 1px solid #FFF;
 	background-color: #222;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#666), to(#222));
 	padding: 5px;
 	padding-top: 60px;
 	margin-left: -1px;
@@ -43,10 +53,12 @@ body {
 }
 
 #header-title ul li:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#AAA), to(#444));
 	background-color: #444;
 }
 
 .menu-current {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#AAA), to(#FFF)) !important;
 	background-color: #FFF !important;
 }
 
@@ -55,14 +67,17 @@ body {
 }
 
 .menu-backstage {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#C30017), to(#73000E)) !important;
 	background-color: #73000E !important;
 }
 
 .menu-backstage:hover {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#FF001D), to(#B20014)) !important;
 	background-color: #920011 !important;
 }
 
 .menu-backstage-current {
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#FF001D), to(#FFF), color-stop(0.8, #FFF)) !important;
 	background-color: #FFF !important;
 }
 
@@ -87,6 +102,7 @@ body {
 	display: block;
 	margin: 0;
 	padding: 2px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#C17436), to(#A9652F));
 	background-color: #C17436;
 	color: #FFF;
 	font-size: 2em;
@@ -115,7 +131,101 @@ body {
 
 .admin-menu a:hover {
 	display: block;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#0000FF), to(#000099)) !important;
 	background-color: #000099;
 	color: #FFF;
 	text-decoration: none;
+}
+
+/* news(blog) css */
+#news-list {
+	font-size: 1.25em;
+	border-bottom: 1px solid #000;
+}
+
+#news-list .thead {
+	border-top: 1px solid #000;
+	font-size: 1.25em;
+	border-bottom: 1px dashed #000;
+}
+
+#news-list .tbody {
+	border-top: 1px dashed #000;
+	margin-top: -1px;
+}
+
+#news-list .tbody .container div {
+	line-height: 30px;
+}
+
+#news-list .tbody .container p.clearfix {
+	margin: 0px;
+}
+
+#news-list .tbody .container a.button {
+	margin-top: 2px;
+}
+
+form input {
+	font-size: 22pt;
+}
+
+form textarea {
+	font-size: 18pt;
+}
+
+/* blog front */
+.blog-date {
+	display: block;
+	margin: 0;
+	padding: 2px;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#444), to(#000));
+	background-color: #000;
+	color: #FFF;
+	letter-spacing: 0.3em;
+}
+
+.blog-title {
+	font-size: 2em;
+	color: rgb(99, 60, 17);
+	margin: 0px;
+}
+
+.blog-content {
+	margin-left: 10px;
+	text-indent: 2em;
+}
+
+/* sidebar */
+#sidebar {
+  	width: 230px;
+  	height: 600px;
+  	background: url('../images/bkg_blackboard.jpg') repeat-y;
+  	color: white;
+	padding: 10px;
+  	padding-right: 35px;
+  	margin-left: -10px;
+  	-webkit-box-shadow: 0px 3px 5px black;
+  	-moz-box-shadow: 0px 3px 5px black;
+  	position: relative;
+  	float: left;
+}
+
+#sidebar {     /* Damn IE fix */
+  	height: auto;
+  	min-height: 600px;
+}
+
+#sidebar #metal_holder {
+  	width: 68px;
+  	height: 213px;
+  	background: url('../images/img_blackboard_holder.png') no-repeat;
+  	position: absolute;
+  	top: 200px;
+  	left: 240px;
+}
+
+#sidebar h1 {
+	color: #FFF;
+	border: none;
 }

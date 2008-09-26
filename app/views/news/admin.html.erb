@@ -1,0 +1,55 @@
+<h1>公告管理</h1>
+<p class="clearfix"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#news-add').toggle('blind'); $('#news-add-form input[type=\'text\'], #news-add-form textarea').val(''); this.blur();"><span><span>新增公告</span></span></a><a href="/news" class="button green right"><span><span>前往圖書館部落格</span></span></a></p>
+<div id="news-add" style="display: none; border-left: 10px solid #333; margin-left: 5px; padding-left: 5px;">
+	<form action="/news/new" method="post" accept-charset="utf-8" id="news-add-form">
+		<p>公告標題<br/><input type="text" name="title" value="" id="title"></p>
+		<p>公告內容<br/><textarea name="content" rows="8" cols="40"></textarea></p>
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+		<p class="clearfix"><a href="#" class="button dark check" onclick="$('#news-add-form').submit();  this.blur();"><span><span>確定送出</span></span></a></p>
+	</form>
+</div>
+<div id="news-list">
+	<div class="thead">
+		<div class="container">
+			<div class="span-3">日期</div>
+			<div class="span-15">公告</div>
+			<div class="span-4 last">行動</div>
+		</div>
+	</div>	
+	<% @news.each do |news| @n = news%>
+	<div class="tbody" id="news-<%=news.id%>">
+		<%=render_partial "news_list_item"%>
+	</div>
+	<% end %>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	function toggle_content(e)
+	{
+		if ($(e).hasClass("down")) { 
+			$('#' + $(e).attr('id').replace('btn-', '')).toggle('blind');
+			$(e).removeClass("down").addClass("up");
+		}
+		else
+		{
+			$('#' + $(e).attr('id').replace('btn-', '')).toggle('blind');
+			$(e).removeClass("up").addClass("down");
+		}
+		return false;
+	}
+	
+	function edit_news(id)
+	{
+		$('#btn-edit-' + id).children('span').children('span').html('...');
+		$.get('/news/edit/' + id, {}, function(data){
+			$('#news-' + id).html(data);
+		});
+	}
+	
+	function restore_news(id)
+	{
+		$.get('/news/admin/' + id, {}, function(data){
+			$('#news-' + id).html(data);
+		})
+	}
+</script>

@@ -1,0 +1,14 @@
+<!-- YUI css --> 
+<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/calendar/assets/skins/sam/calendar.css"> 
+<!-- YUI js --> 
+<script type="text/javascript" src="http://yui.yahooapis.com/combo?2.5.2/build/yahoo-dom-event/yahoo-dom-event.js&2.5.2/build/calendar/calendar-min.js"></script>
+
+<h1>圖書館部落格</h1>
+<div class="container">
+	<div class="span-23 last">
+		<a href="/news">&larr; 回圖書館部落格</a>
+		<p class="blog-date"><%=@news.created_at.strftime("%Y年%m月%d日")%></p>
+		<p class="blog-title"><%=@news.title%></p>
+		<p class="blog-content"><%=@news.content.gsub("\n", "<br/>")%></p>
+	</div>
+</div>
