@@ -1,5 +1,7 @@
+/* layout */
 body {
 	background-color: #7C6255;
+	font-family: Helvetica, Verdana, Arial, DFHeiStd-W5, HiraKakuPro-W3, LiHei Pro, Microsoft JhengHei;
 }
 
 #content {
@@ -31,10 +33,13 @@ body {
 	border-top: 1px solid #FFF;
 	border-right: 1px solid #FFF;
 	background-color: #222;
-	color: #fff;
 	padding: 5px;
 	padding-top: 60px;
 	margin-left: -1px;
+}
+
+#header-title ul li a {
+	color: #fff;	
 }
 
 #header-title ul li:hover {
@@ -43,6 +48,9 @@ body {
 
 .menu-current {
 	background-color: #FFF !important;
+}
+
+.menu-current a {
 	color: #000 !important;
 }
 
@@ -55,7 +63,10 @@ body {
 }
 
 .menu-backstage-current {
-	background-color: #A00 !important;
+	background-color: #FFF !important;
+}
+
+.menu-backstage-current a {
 	color: #F00 !important;
 }
 
@@ -66,7 +77,45 @@ body {
 #footer {
 	margin: 5px;
 	text-align: center;
-	font-weight: bold;
 	color: #FFF;
 	word-spacing: 4px;
+	font-family: Helvetica;
+}
+
+/* admin css */
+.admin-title {
+	display: block;
+	margin: 0;
+	padding: 2px;
+	background-color: #C17436;
+	color: #FFF;
+	font-size: 2em;
+	border-top: 1px solid #000;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+}
+
+.admin-menu {
+	margin: 0;
+	padding: 0;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+	font-size: 1.75em;	
+}
+
+.admin-menu a {
+	display: block;
+	padding: 2px;
+}
+
+.admin-menu .arrow {
+	float: right;
+}
+
+.admin-menu a:hover {
+	display: block;
+	background-color: #000099;
+	color: #FFF;
+	text-decoration: none;
 }

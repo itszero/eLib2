@@ -21,12 +21,12 @@
 			</div>
 			<div class="span-11 last" id="header-title">
 				<ul>
-					<li class="menu-current">首頁</li>
-					<li>搜尋書籍</li>
-					<li>讀者服務</li>
-					<li>聯絡我們</li>
-					<% if @current_user && @current_user.permission == 2 %>
-					<li class="menu-backstage">後臺區</li>
+					<li <%='class="menu-current"' if @in_homepage_function%>><a href="/">首頁</a></li>
+					<li <%='class="menu-current"' if @in_books_function%>><a href="#">搜尋書籍</a></li>
+					<li <%='class="menu-current"' if @in_reader_function%>><a href="#">讀者服務</a></li>
+					<li <%='class="menu-current"' if @in_contact_function%>><a href="#">聯絡我們</a></li>
+					<% if @current_user && @current_user.permission == 2%>
+					<li class="menu-backstage<%="-current" if @in_admin_function%>"><a href="/admin">後臺區</a></li>
 					<% end %>
 				</ul>
 			</div>
@@ -37,6 +37,7 @@
 				<div class="container">
 					<div class="span-23 last" id="session_bar">
 						<% if @current_user %>
+						您好，<%=@current_user.nickname || @current_user.name || @current_user.login%>(<%=@current_user.student_id%>) <% if @current_user.permission == 2 %><span style="color: red;">工作人員</span> <%end%>： <a href="/logout">登出 <img src="/images/img_power.png" width="20" height="20" align="top"></a>
 						<% else %>
 							使用個人化服務，請先 <%= facebox_link_to "登入 <img src=\"/images/img_power.png\" width=\"20\" height=\"20\" align=\"top\" />", :url => '/login' %> 
 						<% end %>

@@ -23,6 +23,6 @@ class ApplicationController < ActionController::Base
   end
   
   def set_sessions
-    session[:current_user] = @currnet_user
+    session[:current_user] = @current_user
   end
 end
