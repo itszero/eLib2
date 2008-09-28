@@ -1,25 +1,43 @@
+<link rel="stylesheet" href="/stylesheets/jquery.autocomplete.css" type="text/css" media="screen" charset="utf-8"/>
+<script type="text/javascript" charset="utf-8" src="/javascripts/jquery.autocomplete.js"></script>
+
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		$('#uid').autocomplete("/users/uid_autocomplete");
+	});
+</script>
+
 <h1>工作人員權限管理</h1>
 
-<div id="staff-add" style="margin: 10px; border: 2px solid #00F; padding: 10px; width: 250px; height: 80px;">
-	<p>讀者帳號：<input type="text" name="id" id="id"><br/>
+<div id="staff-add" style="margin: 10px; border: 2px solid #AAB; padding: 10px; width: 250px; height: 80px;">
+	<form id="staff-add-form" action="/users/set_permission" method="get" accept-charset="utf-8">
+	<p>讀者帳號：<input type="text" name="id" id="uid" style="font-size: 1em;" size="14"><br/>
 	目標權限：<select name="permission"><option value="1">工作人員</option><option value="2">系統管理員</option></select></p>
-	<p class="clearfix" style="margin-top: -20px;"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#staff-add').toggle('blind'); $('#staff-add input[type=\'text\']').val(''); this.blur();"><span><span>提昇讀者權限為工作人員</span></span></a></p>
+	<p class="clearfix" style="margin-top: -20px;"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#staff-add-form').submit(); this.blur();"><span><span>提昇讀者權限為工作人員</span></span></a></p>
+	</form>
 </div>
 
 <h2>工作人員名單</h2>
-<div id="staff-list">
+<div id="staff-list" class="table">
 	<div class="thead">
 		<div class="container">
-			<div class="span-3">學號</div>
-			<div class="span-5">姓名</div>
-			<div class="span-3">班級</div>
-			<div class="span-5">電子郵件</div>
-			<div class="span-8 last">行動</div>
+			<div class="span-4">權限</div>
+			<div class="span-2">帳號</div>
+			<div class="span-4">姓名</div>
+			<div class="span-6">電子郵件</div>
+			<div class="span-7 last">行動</div>
 		</div>
 	</div>	
 	<% @user.each do |user| @u = user%>
-	<div class="tbody" id="user-<%=user.id%>">
-		<%=render_partial "user_list_item"%>
-	</div>
+	<div class="tbody" id="staff-<%=@u.id%>">
+		<div class="container">
+			<div class="span-4"><%if @u.permission == 2%><span style="color: red;">系統管理員</span><%end%><%if @u.permission == 1%><span style="color: red;">工作人員</span><%end%></div>
+			<div class="span-2"><%=@u.login%></div>
+			<div class="span-4"><%=@u.name%></div>
+			<div class="span-6"><%=@u.email%></div>
+			<div class="span-7 last">
+				<p class="clearfix"><% if @u.permission < 2 %><a href="/users/promote/<%=@u.id%>" class="button dark plus" style="margin-right: 10px;" onclick="this.blur();return confirm('您確定要將使用者 「<%=@u.name%>」 昇級嗎？');"><span><span>提昇</span></span></a><% end %><% if @u.permission > 1 %><a href="/users/demote/<%=@u.id%>" class="button alt minus" style="margin-right: 10px;" onclick="this.blur(); return confirm('您確定要將使用者 「<%=@u.name%>」 降級嗎？');"><span><span>降級</span></span></a><% end %><a href="/users/set_permission/<%=@u.id%>?permission=0" class="button pink check" onclick="return confirm('確定要取消使用者 「<%=@u.name%>」的管理權限嗎？')"><span><span>刪除權限</span></span></a></p>
+			</div>
+		</div>	</div>
 	<% end %>
 </div>

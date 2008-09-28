@@ -137,32 +137,31 @@ h2 {
 	text-decoration: none;
 }
 
-/* news(blog) css */
-#news-list {
+.table {
 	font-size: 1.25em;
 	border-bottom: 1px solid #000;
 }
 
-#news-list .thead {
+.table .thead {
 	border-top: 1px solid #000;
 	font-size: 1.25em;
 	border-bottom: 1px dashed #000;
 }
 
-#news-list .tbody {
+.table .tbody {
 	border-top: 1px dashed #000;
 	margin-top: -1px;
 }
 
-#news-list .tbody .container div {
+.table .tbody .container div {
 	line-height: 30px;
 }
 
-#news-list .tbody .container p.clearfix {
+.table .tbody .container p.clearfix {
 	margin: 0px;
 }
 
-#news-list .tbody .container a.button {
+.table .tbody .container a.button {
 	margin-top: 2px;
 }
 

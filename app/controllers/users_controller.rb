@@ -4,8 +4,8 @@ class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   layout 'service'
-  before_filter :super_required, :only => [:staff]
-  before_filter :admin_required, :except => [:index, :edit, :bulk_add]
+  before_filter :super_required, :only => [:staff, :demote, :promote]
+  before_filter :admin_required, :except => [:index, :edit, :bulk_add, :demote, :promote]
   before_filter :login_required, :only => [:edit]
 
   def index
@@ -23,8 +23,71 @@ class UsersController < ApplicationController
   end
   
   def staff
-    @super_user = User.find(:all, :conditions => 'permission = 2')
-    @staff_user = User.find(:all, :conditions => 'permission = 1')
+    @user = User.find(:all, :conditions => 'permission > 0', :order => 'permission DESC, id ASC')
+  end
+
+  def promote
+    @user = User.find(params[:id])
+    
+    if !@user
+      error_stickie "找不到使用者 ##{params[:id]}"
+      redirect_to :action => :staff
+      return
+    end
+    
+    @user.permission+=1 if @user.permission < 2
+    @user.save
+    
+    notice_stickie "使用者 「#{@user.name}」 已提昇權限"
+    redirect_to :action => :staff
+  end
+  
+  def demote
+    @user = User.find(params[:id])
+    
+    if !@user
+      error_stickie "找不到使用者 ##{params[:id]}"
+      redirect_to :action => :staff
+      return
+    end
+    
+    @user.permission-=1 if @user.permission > 1
+    @user.save
+    
+    notice_stickie "使用者 「#{@user.name}」 已降低權限"
+    redirect_to :action => :staff    
+  end
+
+  def set_permission
+    suppress(ActiveRecord::RecordNotFound) do
+      @user = User.find(params[:id])
+    end
+
+    suppress(ActiveRecord::RecordNotFound) do
+      @user = User.find_by_login(params[:id]) if !@user
+    end
+    
+    if !@user
+      error_stickie "找不到使用者 ##{params[:id]}"
+      redirect_to :action => :staff
+      return
+    end
+    
+    @user.permission = params[:permission]
+    if params[:permission].to_i == 0
+      notice_stickie "使用者 「#{@user.name}」 的權限已取消。"
+    elsif params[:permission].to_i > 0
+        notice_stickie "使用者 「#{@user.name}」 已經設定為工作人員。"    
+    end
+    @user.save
+    
+    redirect_to :action => :staff    
+  end
+  
+  def uid_autocomplete
+    @users = User.find(:all, :conditions => "login LIKE '%#{params[:q]}%'")
+
+    render :text => (@users.map &:login).join("\n")
   end
 
   def bulk_add
