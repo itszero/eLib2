@@ -170,6 +170,10 @@ form input {
 	font-size: 22pt;
 }
 
+form input[type="file"] {
+	font-size: 1em !important;
+}
+
 form textarea {
 	font-size: 18pt;
 }
@@ -228,4 +232,30 @@ form textarea {
 #sidebar h1 {
 	color: #FFF;
 	border: none;
+}
+
+/* pagination */
+.pagination {
+    margin: 5px;
+	font-size: 1.2em;
+}
+
+.pagination * {
+	padding: 2px;
+}
+
+.pagination a {
+	border: 1px solid #00F;
+}
+
+.pagination a:hover {
+	border: 1px solid #00F;
+	background-color: #00A;
+	color: #FFF;
+}
+
+.pagination span.current {
+	border: 1px solid #00E;
+	background-color: #00F;
+	color: #FFF;
 }

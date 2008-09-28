@@ -1,0 +1,17 @@
+<h1>大量新增讀者</h1>
+您可以使用這個功能匯入CSV資料來快速建立讀者名單。請注意您的CSV資料必須包含以下欄位：
+<ul>
+	<li>login - 帳號</li>
+	<li>email - 電子郵件地址</li>
+	<li>password - 密碼(需要六位以上)</li>
+	<li>name - 姓名</li>
+	<li>student_id - 學生證號</li>
+	<li>student_class - 學生系級(班級)</li>
+</ul>
+<h2>進行匯入</h2>
+<form action="/users/bulk_add" method="post" accept-charset="utf-8" enctype="multipart/form-data">
+	<p>CSV檔案<br/>
+	<input type="file" name="csv" id="csv"></p>
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+	<p><input type="submit" value="開始匯入 &rarr;"></p>
+</form>

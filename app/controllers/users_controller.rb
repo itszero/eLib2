@@ -1,28 +1,125 @@
+require 'csv'
+
 class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
-  
+  layout 'service'
+  before_filter :super_required, :only => [:staff]
+  before_filter :admin_required, :except => [:index, :edit, :bulk_add]
+  before_filter :login_required, :only => [:edit]
 
-  # render new.rhtml
-  def new
-    @user = User.new
+  def index
+    redirect_to '/'
+  end
+
+  def admin
+    @in_admin_function = true
+    if !params[:id]
+      @user = User.paginate :page => params[:page]
+    else
+      @u = User.find(params[:id])
+      render :partial => 'user_list_item'
+    end
+  end
+  
+  def staff
+    @super_user = User.find(:all, :conditions => 'permission = 2')
+    @staff_user = User.find(:all, :conditions => 'permission = 1')
+  end
+
+  def bulk_add
+    @in_admin_function = true
+    
+    if request.post?
+      csv = CSV.parse(params[:csv].read)
+      header = csv.shift
+      
+      # check reader
+      expect_header = ['login', 'email', 'password', 'name', 'student_id', 'student_class']
+      pass = true
+      expect_header.each do |h|
+        pass = false if !header.include? h
+      end
+      
+      if !pass
+        error_stickie "匯入的欄位有缺失，請檢查CSV檔案！"
+        redirect_to :action => :bulk_add
+        return
+      end
+      
+      # read it
+      result = []
+      csv.each do |row|
+        result << Hash[*header.zip(row.to_a).flatten]
+      end
+      
+      errors = []
+      # add it
+      result.each do |r|
+        u = User.new(r)
+        u.password_confirmation = u.password
+        if !u.save
+          errors << "使用者 #{r["login"]} 無法新增，請檢查資料。"
+        end
+      end
+      
+      if errors != []
+        error_stickie errors.join("<br/>")
+      end
+      notice_stickie("收到 #{result.size} 筆資料，成功新增 #{result.size - errors.size} 筆，失敗 #{errors.size} 筆。")
+      
+      redirect_to :action => :bulk_add
+    end
   end
  
   def create
-    logout_keeping_session!
-    @user = User.new(params[:user])
-    success = @user && @user.save
-    if success && @user.errors.empty?
-            # Protects against session fixation attacks, causes request forgery
-      # protection if visitor resubmits an earlier form using back
-      # button. Uncomment if you understand the tradeoffs.
-      # reset session
-      self.current_user = @user # !! now logged in
-      redirect_back_or_default('/')
-      flash[:notice] = "Thanks for signing up!  We're sending you an email with your activation code."
+    @user = User.new
+    @user.login = params[:login]
+    @user.password = params[:password]
+    @user.password_confirmation = params[:password_confirmation]
+    @user.student_id = params[:student_id]
+    @user.student_class = params[:student_class]
+    @user.name = params[:name]
+    @user.email = params[:email]
+    @user.nickname = params[:nickname] if params[:nickname]
+    if @user.save
+      notice_stickie "使用者 #{params[:login]} 建立成功"
     else
-      flash[:error]  = "We couldn't set up that account, sorry.  Please try again, or contact an admin (link is above)."
-      render :action => 'new'
+      error_stickie "無法建立使用者 #{params[:login]}<br/>#{@user.errors.inspect}"
+    end
+    
+    redirect_to :action => 'admin'    
+  end
+  
+  def delete
+    User.find(params[:id]).destroy
+    redirect_to :action => 'admin'
+  end
+  
+  def edit
+    if request.post?
+      if @current_user.permission == 2 || @current_user.id == params[:id]
+        @user = User.find(params[:id])
+        @user.student_id = params[:student_id]
+        @user.student_class = params[:student_class]
+        @user.name = params[:name]
+        @user.email = params[:email]
+        @user.nickname = params[:nickname] if params[:nickname]
+        @user.save
+      end
+      
+      if @current_user.permission > 0
+        redirect_to '/users/admin'        
+      else
+        redirect_to '/users/edit'
+      end
+    else
+      if @current_user.permission == 0
+        @u = User.find(@current_user.id)
+      else
+        @u = User.find(params[:id])
+        render :layout => false
+      end
     end
   end
 end

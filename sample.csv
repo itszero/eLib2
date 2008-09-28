@@ -1,0 +1,3 @@
+login,email,password,name,student_id,student_class
+csvuser,csv1@test.com,123456,csv1,123456,TEST02
+csvuser2,csv2@test.com,123,csv2,123456,TEST02

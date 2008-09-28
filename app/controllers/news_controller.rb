@@ -11,7 +11,7 @@ class NewsController < ApplicationController
     @in_admin_function = true
     
     if !params[:id]
-      @news = Blog.find(:all, :order => "created_at DESC")
+      @news = Blog.paginate :page => params[:page], :order => 'created_at DESC'
     else
       @n = Blog.find(params[:id])
       render :partial => 'news_list_item'

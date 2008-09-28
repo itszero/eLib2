@@ -1,3 +1,24 @@
+# == Schema Information
+# Schema version: 20080926035923
+#
+# Table name: users
+#
+#  id                        :integer         not null, primary key
+#  login                     :string(40)
+#  name                      :string(100)     default("")
+#  email                     :string(100)
+#  crypted_password          :string(40)
+#  salt                      :string(40)
+#  created_at                :datetime
+#  updated_at                :datetime
+#  remember_token            :string(40)
+#  remember_token_expires_at :datetime
+#  student_class             :string(255)
+#  student_id                :string(255)
+#  nickname                  :string(255)
+#  permission                :integer
+#
+
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
@@ -23,7 +44,7 @@ class User < ActiveRecord::Base
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :student_id, :student_class, :name
 
 
 

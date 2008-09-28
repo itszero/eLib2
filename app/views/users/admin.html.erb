@@ -1,0 +1,55 @@
+<h1>讀者資料查詢/維護</h1>
+<p class="clearfix"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#user-add').toggle('blind'); $('#user-add-form input[type=\'text\']').val(''); this.blur();"><span><span>新增讀者</span></span></a><a href="/users/bulk_add" class="button dark right"><span><span>大批新增讀者</span></span></a></p>
+
+<div id="user-add" style="display: none; border-left: 10px solid #333; margin-left: 5px; padding-left: 5px;">
+	<form action="/users/create" method="post" accept-charset="utf-8" id="user-add-form">
+		<div style="float: left;">登入帳號<br/><input type="text" name="login" id="login"></div>
+		<div style="float: left;">暱稱<br/><input type="text" name="nickname" value=">" id="nickname"></div>
+		<div style="clear: both;">&nbsp;</div>
+		<div style="float: left;">密碼<br/><input type="password" name="password" id="password"></div>
+		<div style="float: left;">確認密碼<br/><input type="password" name="password_confirmation" id="password_confirmation"></div>
+		<div style="clear: both;">&nbsp;</div>
+		<div style="float: left;">學生證號<br/><input type="text" name="student_id" value="" id="student_id"></div>
+		<div style="float: left;">班級<br/><input type="text" name="student_class" value="" id="student_class"></div>
+		<div style="clear: both;">&nbsp;</div>
+		<div style="float: left;">姓名<br/><input type="text" name="name" value="" id="name"></div>
+		<div style="float: left;">E-mail<br/><input type="text" name="email" value="" id="email"></div>
+		<div style="clear: both;">&nbsp;</div>
+		<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+		<p class="clearfix"><a href="#" class="button normal plus" onclick="$('#user-add-form').submit(); this.blur(); return false;" style="margin-right: 10px;"><span><span>新增讀者</span></span></a></p>
+	</form>
+</div>
+<div id="user-list">
+	<div class="thead">
+		<div class="container">
+			<div class="span-3">學號</div>
+			<div class="span-5">姓名</div>
+			<div class="span-3">班級</div>
+			<div class="span-5">電子郵件</div>
+			<div class="span-8 last">行動</div>
+		</div>
+	</div>	
+	<% @user.each do |user| @u = user%>
+	<div class="tbody" id="user-<%=user.id%>">
+		<%=render_partial "user_list_item"%>
+	</div>
+	<% end %>
+</div>
+<%=will_paginate @user, :previous_label => '&laquo; 上一頁', :next_label => '下一頁 &raquo;'%>
+
+<script type="text/javascript" charset="utf-8">
+	function edit_user(id)
+	{
+		$('#btn-edit-' + id).children('span').children('span').html('...');
+		$.get('/users/edit/' + id, {}, function(data){
+			$('#user-' + id).html(data);
+		});
+	}
+	
+	function restore_user(id)
+	{
+		$.get('/users/admin/' + id, {}, function(data){
+			$('#user-' + id).html(data);
+		})
+	}
+</script>
