@@ -284,3 +284,16 @@ form textarea {
 	border: 1px solid #000;
 	width: 80px;
 }
+
+/* book circulation */
+.mode-selector {
+	display: inline;
+	padding: 2px;
+	margin-right: 2px;
+	background-color: #00A;
+	border: 2px solid #FF0;
+}
+
+.mode-selector a {
+	color: #FFF;
+}

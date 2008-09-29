@@ -186,4 +186,15 @@ class UsersController < ApplicationController
       end
     end
   end
+  
+  def get_reader_status_by_student_id
+    @u = User.find_by_student_id(params[:id])
+    
+    if !@u
+      render :text => 'fail:noid'
+      return
+    end
+    
+    render :text => @u.name
+  end
 end

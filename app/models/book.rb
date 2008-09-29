@@ -37,4 +37,22 @@ class Book < ActiveRecord::Base
   event :return do
     transitions :from => :rentout, :to => :on_shelf
   end
+  
+  def rent_to(user)
+    rent!
+    
+    @log = RentLog.new
+    @log.book_id = self.id
+    @log.user_id = user.id
+    @log.start_date = DateTime.now
+    @log.save
+  end
+  
+  def return_book
+    return!
+    
+    @log = RentLog.find(:first, :conditions => ['book_id = ?', self.id])
+    @log.end_date = DateTime.now
+    @log.save
+  end
 end

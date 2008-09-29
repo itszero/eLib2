@@ -1,0 +1,115 @@
+<h1>借閱/還書介面</h1>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a>
+</p>
+
+<div id="rent-form" style="font-size: 1.5em;">
+	ISBN條碼<br/>
+	<form onsubmit="return false;">
+	<input type="text" name="isbn" value="" id="rent-isbn" style="font-size: 1.5em;"><img src="/images/load.gif" id="chk-rent-isbn" style="display: none;"><span id="rent-isbn-msg"></span><br/>
+	學生證號<br/>
+	<input type="text" name="stuid" value="" id="rent-stuid" style="font-size: 1.5em;"><img src="/images/load.gif" id="chk-rent-stuid" style="display: none;"><span id="rent-stuid-msg"></span><br/>
+	<br/>
+	狀態：<span id="rent-status">等候輸入</span>
+	</form>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+	$(function(){
+		$('#rent-form input').val('');
+		$('#rent-isbn').focus();
+	});
+
+	$('#rent-isbn').keydown(function(e){
+		if (e.keyCode == 13)
+		{
+			$('#chk-rent-isbn').show();
+			$('#rent-status').html('檢查書本狀態中...');
+			
+			$.get('/books/get_book_status_by_isbn', {isbn: $('#rent-isbn').val()}, function(data)
+			{
+				$('#chk-rent-isbn').hide();
+				if (data == 'fail:isbn')
+				{
+					$('#rent-status').html('找不到對應的書籍，請檢查ISBN是否正確。')
+					$('#rent-isbn').val('');
+					$('#rent-isbn').focus();					
+				}
+				else if (data == 'fail:rent')
+				{
+					$('#rent-status').html('此書已外借，正在進行還書作業...<img src="/images/load.gif">');
+					do_return_book();
+				}
+				else
+				{
+					$('#rent-isbn-msg').html(data);
+					$('#rent-status').html('ISBN 正確，請輸入學生證號。');
+					$('#rent-stuid').focus();
+				}
+			});
+		}
+	});
+
+	$('#rent-stuid').keydown(function(e){
+		if (e.keyCode == 13)
+		{
+			$('#chk-rent-stuid').show();
+			$('#rent-status').html('檢查學生證號中...');
+			
+			$.get('/users/get_reader_status_by_student_id', {id: $('#rent-stuid').val()}, function(data)
+			{
+				$('#chk-rent-stuid').hide();
+				if (data == 'fail:noid')
+				{
+					$('#rent-status').html('找不到學生，請檢查學號是否正確。')
+					$('#rent-stuid').val('');
+					$('#rent-stuid').focus();					
+				}
+				else
+				{
+					$('#rent-stuid-msg').html(data);
+					$('#rent-status').html('學生證號正確，處理借書中...<img src="/images/load.gif">');
+					do_rent_book();
+				}
+			});
+		}
+	});
+	
+	function do_rent_book()
+	{
+		var stuid = $('#rent-stuid').val();
+		var isbn = $('#rent-isbn').val();
+		
+		$.get('/books/rent_book', {isbn: isbn, stuid: stuid}, function(data){
+			if (data == 'ok')
+				$('#rent-status').html('館藏外借成功！');
+			else
+				$('#rent-status').html('館藏外借失敗，請再嘗試一次。');
+
+			$('#rent-isbn').val('');
+			$('#rent-stuid').val('');
+			$('#rent-isbn-msg').html('');
+			$('#rent-stuid-msg').html('');
+			$('#rent-isbn').focus();
+		});
+	}
+
+	function do_return_book()
+	{
+		var isbn = $('#rent-isbn').val();
+		
+		$.get('/books/return_book', {isbn: isbn}, function(data){
+			if (data == 'ok')
+				$('#rent-status').html('館藏歸還成功！');
+			else
+				$('#rent-status').html('館藏歸還作業失敗，請再嘗試一次。');
+
+			$('#rent-isbn').val('');
+			$('#rent-stuid').val('');
+			$('#rent-isbn-msg').html('');
+			$('#rent-stuid-msg').html('');
+			$('#rent-isbn').focus();
+		});
+	}
+
+</script>
+

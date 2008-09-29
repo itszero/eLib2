@@ -11,6 +11,10 @@ class BooksController < ApplicationController
     render :layout => false
   end
   
+  def circulation
+    @in_admin_function = true
+  end
+  
   def admin
     @in_admin_function = true
     if params[:filter]
@@ -64,6 +68,50 @@ class BooksController < ApplicationController
   end
   
   def show
+    @in_books_function = true
+    
     @b = Book.find(params[:id])
+  end
+  
+  def get_book_status_by_isbn
+    @b = Book.find_by_isbn(params[:isbn])
+    if !@b
+      render :text => 'fail:isbn'
+      return
+    end
+    
+    if @b.rentout?
+      render :text => 'fail:rent'
+      return
+    end
+    
+    render :text => @b.title
+  end
+  
+  def rent_book
+    @b = Book.find_by_isbn(params[:isbn])
+    
+    if !@b
+      render :text => 'fail'
+      return
+    end
+    
+    @u = User.find_by_student_id(params[:stuid])
+    
+    if !@u
+      render :text => 'fail'
+      return
+    end
+    
+    @b.rent_to(@u)
+    render :text => 'ok'
+  end
+  
+  def return_book
+    @b = Book.find_by_isbn(params[:isbn])
+    
+    @b.return_book
+    
+    render :text => 'ok'
   end
 end
