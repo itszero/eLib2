@@ -1,0 +1,43 @@
+<% if @is_edit %>
+<h1>編輯館藏資料</h1>
+<%else%>
+<h1>新增館藏資料</h1>
+<% end %>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a></p>
+
+<% if @is_edit %>
+<form action="/books/edit" method="post" accept-charset="utf-8" id="book-new-form" enctype="multipart/form-data">
+<% else %>
+<form action="/books/new" method="post" accept-charset="utf-8" id="book-new-form" enctype="multipart/form-data">
+<% end %>
+	<div class="container">
+		<div class="span-11">書名<br/><input type="text" name="book[title]" value="<%=@b.title%>" id="book_title"></div>
+		<div class="span-11 last">封面<br/><% if @b.cover %><img src="<%=url_for_file_column @b, 'cover'%>" width="80"><br/><%end%><input type="file" name="book[cover]" value="" id="book_cover"></div>
+	</div>
+	
+	<div class="container">
+		<div class="span-11">作者<br/><input type="text" name="book[author]" value="<%=@b.author%>" id="book_author"></div>
+		<div class="span-11">出版社<br/><input type="text" name="book[publisher]" value="<%=@b.publisher%>" id="book_publisher"></div>
+	</div>
+
+	<div class="container">
+		<div class="span-11">出版時間<br/><input type="text" name="book[published_at]" value="<%=@b.published_at%>" id="book_published_at"></div>
+		<div class="span-11">ISBN<br/><input type="text" name="book[isbn]" value="<%=@b.isbn%>" id="book_isbn"></div>
+	</div>
+	
+	<div class="container">
+		<div class="span-11">內容簡介<br/><textarea name="book[content]" rows="8" cols="40"><%=@b.content%></textarea></div>
+		<div class="span-11">備註<br/><textarea name="book[note]" rows="8" cols="40"><%=@b.note%></textarea></div>
+	</div>
+	
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+	
+	<% if @b.id %>
+	<input type="hidden" name="id" value="<%=@b.id%>" id="id">
+	<% end %>
+	<% if @is_edit %>
+	<p class="clearfix"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#book-new-form').submit(); this.blur(); return false;"><span><span>編輯館藏</span></span></a></p>
+	<% else %>
+	<p class="clearfix"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#book-new-form').submit(); this.blur(); return false;"><span><span>新增館藏</span></span></a></p>
+	<% end %>
+</form>

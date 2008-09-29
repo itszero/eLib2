@@ -1,0 +1,18 @@
+<p class="clearfix"><a href="javascript:history.go(-1);" class="button green back" style="margin-right: 10px;"><span><span>返回</span></span></a></p>
+
+<h1>館藏簡介</h1>
+<div style="float: left; border: 2px solid #222; padding: 2px; margin: 2px;"><img src="<%=url_for_file_column @b, 'cover'%>" width="150"></div>
+<div style="float: left; padding: 2px; margin: 2px; font-size: 1.5em;">
+	書名：<%=@b.title%><br/>
+	作者：<%=@b.author%><br/>
+	出版社：<%=@b.publisher%><br/>
+	出版時間：<%=@b.published_at%><br/>
+	ISBN：<%=@b.isbn%><br/>
+<p>目前本書 <span style="color: red;"><% if @b.state == 'on_shelf'%>可外借<% elsif @b.state == 'rentout' %>借出中<% end %></span>。</p></div>
+<div style="clear: both;"></div>
+<br/>
+<h1>內容簡介</h1>
+<%=@b.content.gsub("\n", "<br/>")%>
+<br/><br/>
+<h1 style="color: red">館員備註</h1>
+<%=@b.note.gsub("\n", "<br/>")%>

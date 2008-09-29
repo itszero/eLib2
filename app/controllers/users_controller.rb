@@ -23,6 +23,7 @@ class UsersController < ApplicationController
   end
   
   def staff
+    @in_admin_function = true
     @user = User.find(:all, :conditions => 'permission > 0', :order => 'permission DESC, id ASC')
   end
 

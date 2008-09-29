@@ -8,6 +8,7 @@
 </script>
 
 <h1>工作人員權限管理</h1>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a></p>
 
 <div id="staff-add" style="margin: 10px; border: 2px solid #AAB; padding: 10px; width: 250px; height: 80px;">
 	<form id="staff-add-form" action="/users/set_permission" method="get" accept-charset="utf-8">
@@ -36,7 +37,7 @@
 			<div class="span-4"><%=@u.name%></div>
 			<div class="span-6"><%=@u.email%></div>
 			<div class="span-7 last">
-				<p class="clearfix"><% if @u.permission < 2 %><a href="/users/promote/<%=@u.id%>" class="button dark plus" style="margin-right: 10px;" onclick="this.blur();return confirm('您確定要將使用者 「<%=@u.name%>」 昇級嗎？');"><span><span>提昇</span></span></a><% end %><% if @u.permission > 1 %><a href="/users/demote/<%=@u.id%>" class="button alt minus" style="margin-right: 10px;" onclick="this.blur(); return confirm('您確定要將使用者 「<%=@u.name%>」 降級嗎？');"><span><span>降級</span></span></a><% end %><a href="/users/set_permission/<%=@u.id%>?permission=0" class="button pink check" onclick="return confirm('確定要取消使用者 「<%=@u.name%>」的管理權限嗎？')"><span><span>刪除權限</span></span></a></p>
+				<p class="clearfix"><% if @u.permission < 2 %><a href="/users/promote/<%=@u.id%>" class="button dark plus" style="margin-right: 10px;" onclick="this.blur();return confirm('您確定要將使用者 「<%=@u.name%>」 昇級嗎？');"><span><span>提昇</span></span></a><% end %><% if @u.permission > 1 %><a href="/users/demote/<%=@u.id%>" class="button alt minus" style="margin-right: 10px;" onclick="this.blur(); return confirm('您確定要將使用者 「<%=@u.name%>」 降級嗎？');"><span><span>降級</span></span></a><% end %><a href="/users/set_permission/<%=@u.id%>?permission=0" class="button pink x" onclick="return confirm('確定要取消使用者 「<%=@u.name%>」的管理權限嗎？')"><span><span>刪除權限</span></span></a></p>
 			</div>
 		</div>	</div>
 	<% end %>

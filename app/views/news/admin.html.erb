@@ -1,5 +1,6 @@
 <h1>公告管理</h1>
-<p class="clearfix"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#news-add').toggle('blind'); $('#news-add-form input[type=\'text\'], #news-add-form textarea').val(''); this.blur();"><span><span>新增公告</span></span></a><a href="/news" class="button green right"><span><span>前往圖書館部落格</span></span></a></p>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a>
+	<a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#news-add').toggle('blind'); $('#news-add-form input[type=\'text\'], #news-add-form textarea').val(''); this.blur();"><span><span>新增公告</span></span></a><a href="/news" class="button green right"><span><span>前往圖書館部落格</span></span></a></p>
 <div id="news-add" style="display: none; border-left: 10px solid #333; margin-left: 5px; padding-left: 5px;">
 	<form action="/news/new" method="post" accept-charset="utf-8" id="news-add-form">
 		<p>公告標題<br/><input type="text" name="title" value="" id="title"></p>

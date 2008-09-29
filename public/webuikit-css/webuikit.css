@@ -22,7 +22,7 @@ a {
 
 /* iepngfix http://www.twinhelix.com/ */
 
-img { behavior: url(/webuikit-css/iepngfix.htc) }
+img, #metal_holder { behavior: url(/webuikit-css/iepngfix.htc) }
 
 
 /* @end */
@@ -209,7 +209,11 @@ a.button.thumb span span, a.button.thumb:active span span {
 	padding-right: 3px;
 }
 
-
+a.button.pencil span span, a.button.pencil:active span span {
+	background: url(../webuikit-img/glyphs/pencil.png) no-repeat;
+	padding-left: 20px;
+	padding-right: 3px;
+}
 
 /* @end */
 

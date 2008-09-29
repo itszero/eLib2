@@ -1,0 +1,13 @@
+xml.instruct!
+
+xml.coverflowinfo do
+    @books.each do |b|
+		xml.bookinfo do
+			xml.cover url_for_file_column b, 'cover'
+			xml.bookname b.title
+			xml.author b.author
+			xml.authorLink ""
+			xml.bookLink "/books/show/#{b.id}"
+		end
+	end
+end

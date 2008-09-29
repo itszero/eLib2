@@ -1,5 +1,6 @@
 <h1>讀者資料查詢/維護</h1>
-<p class="clearfix"><a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#user-add').toggle('blind'); $('#user-add-form input[type=\'text\']').val(''); this.blur();"><span><span>新增讀者</span></span></a><a href="/users/bulk_add" class="button dark right"><span><span>大批新增讀者</span></span></a></p>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a>
+<a href="#" class="button pink plus" style="margin-right: 10px;" onclick="$('#user-add').toggle('blind'); $('#user-add-form input[type=\'text\']').val(''); this.blur();"><span><span>新增讀者</span></span></a><a href="/users/bulk_add" class="button dark right"><span><span>大批新增讀者</span></span></a></p>
 
 <div id="user-add" style="display: none; border-left: 10px solid #333; margin-left: 5px; padding-left: 5px;">
 	<form action="/users/create" method="post" accept-charset="utf-8" id="user-add-form">

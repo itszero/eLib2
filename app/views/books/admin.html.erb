@@ -1,0 +1,45 @@
+<h1>搜尋/維護館藏</h1>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a>
+<a href="/books/new" class="button pink plus" style="margin-right: 10px;" onclick="this.blur();"><span><span>新增館藏資料</span></span></a></p>
+
+<p class="filter-title">過濾館藏資訊：<input type="text" name="filter" value="<%=params[:filter]%>" id="filter"><input type="button" value="過濾" id="btn-filter">(標題, 作者, 出版社, ISBN, 內容簡介, 備註)</p>
+
+<script type="text/javascript" charset="utf-8">
+	$('#filter').keydown(function(e){
+		if (e.keyCode == 13) $('#btn-filter').click();
+	});
+
+	$('#btn-filter').click(function(){
+		location.href='/books/admin?page=<%=params[:page] || 1%>&filter=' + $('#filter').val();
+	});
+</script>
+
+<div id="news-list" class="table">
+	<div class="thead">
+		<div class="container">
+			<div class="span-3">封面</div>
+			<div class="span-4">書名</div>
+			<div class="span-4">出版社</div>
+			<div class="span-4">作者</div>
+			<div class="span-4">ISBN</div>
+			<div class="span-4 last">行動</div>
+		</div>
+	</div>	
+
+<% @books.each do |b| %>
+	<div class="tbody">
+		<div class="container">
+			<div class="span-3 book-cover"><img src="<%=url_for_file_column b, 'cover'%>"></div>
+			<div class="span-4"><%=b.title%></div>
+			<div class="span-4"><%=b.publisher%></div>
+			<div class="span-4"><%=b.author%></div>
+			<div class="span-4"><%=b.isbn%></div>
+			<div class="span-4 last">
+				<p class="clearfix"><a href="/books/edit/<%=b.id%>" class="button dark pencil" style="margin-right: 10px;" onclick="this.blur();" id="btn-edit-"><span><span>編輯</span></span></a><a href="/books/show/<%=b.id%>" class="button alt star" style="margin-right: 10px;" onclick="this.blur();" id="btn-detail-<%=b.id%>"><span><span>詳細記錄</span></span></a><a href="/books/delete/<%=b.id%>" class="button pink minus" onclick="return confirm('請確認是否刪除館藏 <%=b.title%> ？');"><span><span>刪除</span></span></a></p>
+			</div>
+		</div>	
+	</div>
+<% end %>
+</div>
+
+<%=will_paginate @books, :previous_label => '&laquo; 上一頁', :next_label => '下一頁 &raquo;'%>
