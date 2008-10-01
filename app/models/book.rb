@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080929055605
+# Schema version: 20080930191254
 #
 # Table name: books
 #
@@ -13,19 +13,20 @@
 #  toc          :text
 #  problems     :text
 #  state        :string(255)
-#  note         :string(255)
+#  note         :text(255)
 #  isbn         :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime
 #
 
 class Book < ActiveRecord::Base
+  acts_as_commentable
   acts_as_state_machine :initial => :on_shelf
   
   file_column :cover
   validates_file_format_of :cover, :in => ['jpg', 'gif', 'png']
   
-  named_scope :filter, lambda { |args| {:conditions => "title LIKE '%#{args}%' OR author LIKE '%#{args}%' OR publisher LIKE '%#{args}%' OR content LIKE '%#{args}%' OR isbn LIKE '%#{args}%' OR note LIKE '%#{args}%"}}
+  named_scope :filter, lambda { |args| {:conditions => "title LIKE '%#{args}%' OR author LIKE '%#{args}%' OR publisher LIKE '%#{args}%' OR content LIKE '%#{args}%' OR isbn LIKE '%#{args}%' OR note LIKE '%#{args}%'"}}
   
   state :on_shelf
   state :rentout

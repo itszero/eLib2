@@ -22,8 +22,8 @@
 			<div class="span-11 last" id="header-title">
 				<ul>
 					<li <%='class="menu-current"' if @in_homepage_function%>><a href="/">首頁</a></li>
-					<li <%='class="menu-current"' if @in_books_function%>><a href="#">搜尋書籍</a></li>
-					<li <%='class="menu-current"' if @in_reader_function%>><a href="#">讀者服務</a></li>
+					<li <%='class="menu-current"' if @in_books_function%>><a href="/books/search">搜尋書籍</a></li>
+					<li <%='class="menu-current"' if @in_reader_function%>><a href="/reader">讀者服務</a></li>
 					<li <%='class="menu-current"' if @in_contact_function%>><a href="#">聯絡我們</a></li>
 					<% if @current_user && @current_user.permission == 2%>
 					<li class="menu-backstage<%="-current" if @in_admin_function%>"><a href="/admin">後臺區</a></li>
@@ -39,7 +39,7 @@
 						<% if @current_user %>
 						 <a href="/logout"><img src="/images/img_power.png" width="20" height="20">登出</a> 您好，<%=@current_user.nickname || @current_user.name || @current_user.login%>(<%=@current_user.student_id%>) <% if @current_user.permission == 2 %><span style="color: red;">系統管理員</span><% end %><% if @current_user.permission == 1 %><span style="color: red;">工作人員</span><% end %>
 						<% else %>
-							<%= facebox_link_to "登入 <img src=\"/images/img_power.png\" width=\"20\" height=\"20\" align=\"top\" />", :url => '/login' %> 後才能使用使用個人化服務。
+							<%= facebox_link_to "登入 <img src=\"/images/img_power.png\" width=\"20\" height=\"20\" align=\"top\" />", {:url => '/login'}, :id => 'login-link' %> 後才能使用使用個人化服務。
 						<% end %>
 					</div>
 				</div>

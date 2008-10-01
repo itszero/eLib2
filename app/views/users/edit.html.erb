@@ -6,6 +6,8 @@
 	<div style="float: left;">姓名<br/><input type="text" name="name" value="<%=@u.name%>" id="name"></div>
 	<div style="float: left;">E-mail<br/><input type="text" name="email" value="<%=@u.email%>" id="email"></div>
 	<div style="clear: both;">&nbsp;</div>
+	<div style="float: left;">密碼(不更動請留白)<br/><input type="text" name="password" value="" id="password"></div>
+	<div style="clear: both;">&nbsp;</div>
 	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
 	<input type="hidden" name="id" value="<%=@u.id%>" id="id">
 	<p class="clearfix"><a href="#" class="button normal check" onclick="$('#user-edit-form').submit();  this.blur(); return false;" style="margin-right: 10px;"><span><span>儲存修改</span></span></a> <a href="#" class="button dark x" onclick="restore_user(<%=@u.id%>); return false;"><span><span>取消</span></span></a></p>

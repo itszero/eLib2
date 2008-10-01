@@ -1,0 +1,25 @@
+<h1>逾期未歸還館藏列表</h1>
+
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a></p>
+
+<div id="book-list" class="table">
+	<div class="thead">
+		<div class="container">
+			<div class="span-8">書名</div>
+			<div class="span-4">借閱者</div>
+			<div class="span-4">ISBN</div>
+			<div class="span-3">借出日期</div>
+		</div>
+	</div>	
+	<% @r.each do |r| %>
+		<div class="tbody">
+			<div class="container">
+				<div class="span-8"><%=r.book.title%></div>
+				<div class="span-4"><%=r.user.name%></div>
+				<div class="span-4"><%=r.book.isbn%></div>
+				<div class="span-3 last"><%=r.start_date.strftime("%Y/%m/%d")%></div>
+			</div>	
+		</div>
+	<% end %>
+
+</div>

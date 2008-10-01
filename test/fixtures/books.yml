@@ -1,5 +1,5 @@
 # == Schema Information
-# Schema version: 20080929055605
+# Schema version: 20080930191254
 #
 # Table name: books
 #
@@ -13,7 +13,7 @@
 #  toc          :text
 #  problems     :text
 #  state        :string(255)
-#  note         :string(255)
+#  note         :text(255)
 #  isbn         :string(255)
 #  created_at   :datetime
 #  updated_at   :datetime

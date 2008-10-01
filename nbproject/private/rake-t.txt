@@ -1,0 +1,2 @@
+(in C:/Documents and Settings/Zero/My Documents/My Dropbox/Sites/2009csc)
+Rails requires RubyGems >= 1.1.1 (you have 0.9.4). Please `gem update --system` and try again.

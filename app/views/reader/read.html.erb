@@ -1,0 +1,45 @@
+<script type="text/javascript" charset="utf-8" src="/javascripts/jquery.jeditable.pack.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var post_token = '<%=form_authenticity_token%>';
+
+	$(function(){
+		$('#comment-content').editable(function(v, s){
+				$.post('/reader/edit/<%=@comment.id%>', {value: v, authenticity_token: post_token});
+				return v.replace(/\n/g,"<br/>");	
+			}, {
+			loadurl: '/reader/load_text/<%=@comment.id%>',
+			id: 'eid',
+			type: 'textarea',
+			cancel: '取消',
+			submit: '編輯',
+			indicator: '<img src="/images/load.gif">',
+			tooltip: '點選以編輯心得...'
+		});
+	});
+</script>
+<h1>閱讀心得</h1>
+<p class="clearfix"><a href="/books/show/<%=@book.id%>" class="button green back" style="margin-right: 10px;"><span><span>返回簡介</span></span></a></p>
+
+<div class="container">
+	<div class="span-3"><a href="/books/show/<%=@book.id%>"><img src="<%=url_for_file_column @book, 'cover'%>" width="100" style="border: 2px solid #222; padding: 2px; margin: 2px;"></a></div>
+	<div class="span-20" style="margin: 2px;">
+		書名：<%=@book.title%><br/>
+		作者：<%=@book.author%><br/>
+		出版社：<%=@book.publisher%><br/>
+		出版時間：<%=@book.published_at%><br/>
+		ISBN：<%=@book.isbn%><br/>
+	</div>
+</div>
+<br/>
+<hr noshade/>
+<h2>心得內容</h2>
+<p>小技巧：若想編輯心得，請點選您的心得內容。</p>
+<% if @comment.score %><span style="color: red;">評分：<%=@comment.score%></span><% end %>
+<div id="comment-content"><%=@comment.comment.gsub("\n", "<br/>")%></div>
+
+<p class="clearfix" style="border-top: 1px solid #DDD; padding-top: 5px;"><a href="/reader/delete/<%=@comment.id%>" class="button dark x" style="margin-right: 10px;" onclick="this.blur();"><span><span>刪除心得</span></span></a></p>
+
+<% if @current_user.permission > 0%>
+給分：<input type="text" name="score" value="" id="score">
+<p class="clearfix"><a href="#" class="button pink thumb" onclick="location.href='/reader/rate/<%=@comment.id%>?score=' + $('#score').val();"><span><span>評分</span></span></a></p>
+<% end %>

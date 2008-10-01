@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   layout 'service'
-  before_filter :admin_required, :except => [:index, :show]
+  before_filter :admin_required, :except => [:index, :show, :latest_xml, :search]
   
   def index
   end
@@ -113,5 +113,14 @@ class BooksController < ApplicationController
     @b.return_book
     
     render :text => 'ok'
+  end
+  
+  def overdue
+   @r = RentLog.find(:all, :conditions => ['start_date <= ? AND end_date IS NULL', 1.week.ago])
+  end
+  
+  def search
+    @in_books_function = true
+    @books = Book.filter(params[:keyword]).paginate :page => params[:page], :per_page => 10
   end
 end

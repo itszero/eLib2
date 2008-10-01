@@ -22,6 +22,11 @@ class UsersController < ApplicationController
     end
   end
   
+  def details
+    @u = User.find(params[:id])
+    @r = RentLog.find(:all, :conditions => ['user_id = ?', params[:id]]).paginate :page => params[:page]
+  end
+  
   def staff
     @in_admin_function = true
     @user = User.find(:all, :conditions => 'permission > 0', :order => 'permission DESC, id ASC')
@@ -169,6 +174,7 @@ class UsersController < ApplicationController
         @user.name = params[:name]
         @user.email = params[:email]
         @user.nickname = params[:nickname] if params[:nickname]
+        @user.password = @user.password_confirmation = params[:password] if params[:password] && params[:password] != ''
         @user.save
       end
       

@@ -1,3 +1,13 @@
+<script src="/javascripts/jquery.browser.min.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+$(function(){
+  $('#login-link').click(function(){
+    if ($.os.name == 'linux')
+      $('#iTunesAlbumArt').slideUp();
+  });
+});
+</script>
 <div style="text-align: center; border: 1px solid #000; width:900px;">
 <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=8,0,0,0" id="iTunesAlbumArt" align="middle" width="900" height="329">
   <param name="allowScriptAccess" value="always">
@@ -24,9 +34,9 @@
 		<% if @current_user %>
 		<h2>資訊快遞</h2>
 		<ul style="margin-left: 30px;">
-			<li>您目前共借閱 5 本書，2 本書即將到期。</li>
-			<li>您還需要繳交 3 篇讀書心得。</li>
-		</ul>
+			<li>您目前共借閱 <%=@rentlog_size%> 本書，<%=@needreturn_size%> 本書即將到期。</li>
+			<li>寫過了 <%=@comments_size%> 篇心得</li>
+	    </ul>
 		<%=link_to '詳細資訊...', :controller => 'reader'%>
 		<% else %>
 		<h2>隨機好書</h2>

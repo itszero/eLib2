@@ -1,0 +1,24 @@
+<h1>館藏借閱歷史紀錄</h1>
+<p class="clearfix"><a href="/reader" class="button green back" style="margin-right: 10px;"><span><span>返回</span></span></a></p>
+
+<div id="book-list" class="table">
+	<div class="thead">
+		<div class="container">
+			<div class="span-10">書名</div>
+			<div class="span-4">ISBN</div>
+			<div class="span-4">借出日期</div>
+			<div class="span-4">歸還日期</div>
+		</div>
+	</div>	
+	<% @r.each do |r| %>
+		<div class="tbody">
+			<div class="container">
+				<div class="span-10"><%=r.book.title%></div>
+				<div class="span-4"><%=r.book.isbn%></div>
+				<div class="span-4 last"><%=r.start_date.strftime("%Y/%m/%d")%></div>
+				<div class="span-4 last"><%if r.end_date%><%=r.end_date.strftime("%Y/%m/%d")%><%else%><span style="color: red;">尚未歸還</span><%end%></div>
+			</div>	
+		</div>
+	<% end %>
+</div>
+<%=will_paginate @r, :previous_label => '&laquo; 上一頁', :next_label => '下一頁 &raquo;'%>

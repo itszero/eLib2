@@ -297,3 +297,9 @@ form textarea {
 .mode-selector a {
 	color: #FFF;
 }
+
+/* big button */
+.bigbutton {
+	border: 2px solid #000;
+	font-size: 22pt;
+}

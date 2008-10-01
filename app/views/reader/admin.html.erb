@@ -1,0 +1,38 @@
+<h1>讀書心得管理</h1>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a></p>
+
+<form action="/reader/admin" method="get" accept-charset="utf-8"> 
+<p class="filter-title">
+	以ISBN過濾：<input type="text" name="isbn" value="<%=params[:isbn]%>" id="isbn"><br/>
+	以讀者學號過濾：<input type="text" name="sid" value="<%=params[:sid]%>" id="sid"><br/>
+	<input type="submit" value="過濾 &rarr;">
+</p>
+</form>
+
+<div id="book-list" class="table">
+	<div class="thead">
+		<div class="container">
+			<div class="span-7">書名</div>
+			<div class="span-7">內容</div>
+			<div class="span-4">撰寫日期</div>
+			<div class="span-3">分數</div>
+			<div class="span-2">行動</div>
+		</div>
+	</div>
+	<% @c.each do |c| %>
+		<div class="tbody">
+			<div class="container">
+				<div class="span-7"><%=c.commentable.title%></div>
+				<div class="span-7"><%=c.comment.chars[0..10]%>... (<a href="/reader/read/<%=c.id%>">完整內容</a>)</div>
+				<div class="span-4"><%=c.created_at.strftime("%Y/%m/%d")%></div>
+				<div class="span-3"><%if c.score%><%=c.score%><%else%><span style="color: red;">尚未評分</span><%end%></div>
+				<div class="span-2">
+					<p class="clearfix">
+						<a href="/reader/delete/<%=c.id%>" class="button pink minus" onclick="return confirm('確定要刪除心得嗎？')"><span><span>刪除</span></span></a>
+					</p>
+				</div>
+			</div>	
+		</div>
+	<% end %>
+</div>
+<%=will_paginate @c, :previous_label => '&laquo; 上一頁', :next_label => '下一頁 &raquo;'%>

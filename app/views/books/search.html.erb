@@ -1,0 +1,48 @@
+<h1>搜尋書籍</h1>
+
+<p>請在下面搜尋框中輸入關鍵字，系統會幫您在 標題、作者、出版社、ISBN以及內容摘要中搜尋。</p>
+<form action="/books/search" method="get" accept-charset="utf-8" style="background-color: #444; color: #FFF; padding: 5px;">
+	<div class="container">
+		<div class="span-3" style="font-size: 22pt; text-align: right;">關鍵字</div>
+		<div class="span-15"><input type="text" name="keyword" value="<%=params[:keyword]%>" id="keyword" style="width: 100%;"></div>	
+		<div class="span-3"><input type="submit" value="搜尋 &rarr;" class="bigbutton"></div>
+	</div>
+	<input type="hidden" name="show" value="<%=params[:show]%>" id="show">
+	<input type="hidden" name="page" value="<%=params[:page] || 1%>" id="page">	
+</form>
+
+<% if params[:keyword] && params[:keyword] != ''%>
+共找到 <%=@books.size%> 筆資料 | 顯示模式：<a href="/books/search?keyword=<%=params[:keyword]%>&page=<%=params[:page] || 1%>&show=grid">封面網格</a> | <a href="/books/search?keyword=<%=params[:keyword]%>&page=<%=params[:page] || 1%>&show=list">簡明資料</a> 
+<% if !params[:show] || params[:show] == '' || params[:show] == 'list' %>
+<div class="table">
+<% @books.each do |b| %>
+<div class="tbody">
+	<div class="container">
+		<div class="span-3"><a href="/books/show/<%=b.id%>"><img src="<%=url_for_file_column b, 'cover'%>" width="100" style="border: 2px solid #222; padding: 2px; margin: 2px;"></a></div>
+		<div class="span-20" style="margin: 2px;">
+			書名：<%=b.title%><br/>
+			作者：<%=b.author%><br/>
+			出版社：<%=b.publisher%><br/>
+			出版時間：<%=b.published_at%><br/>
+			ISBN：<%=b.isbn%><br/>
+		</div>
+	</div>
+</div>
+<% end %>
+<% elsif params[:show] == 'grid' %>
+<% @i = 0 
+   until @i >= @books.size 
+	b = @books[@i] %>
+<%   if @i % 3 == 0 %>
+	<div class="container">
+<%   end %>
+	<div class="span-7"><a href="/books/show/<%=b.id%>"><img src="<%=url_for_file_column b, 'cover'%>" width="200" style="border: 2px solid #222; padding: 2px; margin: 10px;"></a></div>
+<%   if @i % 3 == 2%>
+	</div>
+<%   end %>
+<%   @i += 1%>
+<% end %>
+<% end %>
+</div>
+<%=will_paginate @books, :previous_label => '&laquo; 上一頁', :next_label => '下一頁 &raquo;'%>
+<% end %>
