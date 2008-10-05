@@ -25,7 +25,7 @@
 					<li <%='class="menu-current"' if @in_books_function%>><a href="/books/search">搜尋書籍</a></li>
 					<li <%='class="menu-current"' if @in_reader_function%>><a href="/reader">讀者服務</a></li>
 					<li <%='class="menu-current"' if @in_contact_function%>><a href="#">聯絡我們</a></li>
-					<% if @current_user && @current_user.permission == 2%>
+					<% if @current_user && @current_user.permission > 0%>
 					<li class="menu-backstage<%="-current" if @in_admin_function%>"><a href="/admin">後臺區</a></li>
 					<% end %>
 				</ul>

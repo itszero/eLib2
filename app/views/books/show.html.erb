@@ -14,7 +14,7 @@
 <h1>內容簡介</h1>
 <%=@b.content.gsub("\n", "<br/>")%>
 <br/><br/>
-<% if @current_user.permission > 0 %>
+<% if @current_user && @current_user.permission > 0 %>
 <h1 style="color: red">館員備註</h1>
 <%=@b.note.gsub("\n", "<br/>")%>
 <% end %>

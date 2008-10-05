@@ -52,7 +52,7 @@ class Book < ActiveRecord::Base
   def return_book
     return!
     
-    @log = RentLog.find(:first, :conditions => ['book_id = ?', self.id])
+    @log = RentLog.find(:last, :conditions => ['book_id = ?', self.id])
     @log.end_date = DateTime.now
     @log.save
   end

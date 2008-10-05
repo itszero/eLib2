@@ -40,8 +40,10 @@ class ReaderController < ApplicationController
         params[:sid] = nil
       end
     end
-    
-    @c = @c.find(:all, :order => 'created_at DESC').paginate :page => params[:page]
+   
+    @c1 = @c.find(:all, :order => 'created_at DESC', :conditions => 'score IS NULL')
+    @c2 = @c.find(:all, :order => 'created_at DESC', :conditions => 'score IS NOT NULL')
+    @c = (@c1 + @c2).paginate :page => params[:page]
   end
   
   def write

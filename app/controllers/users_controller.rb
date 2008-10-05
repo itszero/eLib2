@@ -127,6 +127,7 @@ class UsersController < ApplicationController
       result.each do |r|
         u = User.new(r)
         u.password_confirmation = u.password
+	u.permission = 0
         if !u.save
           errors << "使用者 #{r["login"]} 無法新增，請檢查資料。"
         end
@@ -151,6 +152,7 @@ class UsersController < ApplicationController
     @user.name = params[:name]
     @user.email = params[:email]
     @user.nickname = params[:nickname] if params[:nickname]
+    @user.permission = 0
     if @user.save
       notice_stickie "使用者 #{params[:login]} 建立成功"
     else
