@@ -42,7 +42,7 @@ $(function(){
 		<h2>隨機好書</h2>
 		<ul style="margin-left: 30px;">
 		<% @random_books.each do |book| %>
-			<a href="/books/show/<%=book.id%>"><img src="<%=url_for_file_column book, :cover%>" style="border: 2px solid #000; margin: 5px; padding: 5px; width: 80px;"></a>
+			<a href="/books/show/<%=book.id%>"><img src="<%=url_for_file_column book, :cover%>" style="border: 2px solid #000; margin: 5px; padding: 5px; width: 80px;" alt="<%=book.title%>"></a>
 		<% end %>
 		</ul>
 		<% end %>

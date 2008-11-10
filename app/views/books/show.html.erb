@@ -1,7 +1,7 @@
 <p class="clearfix"><a href="javascript:history.go(-1);" class="button green back" style="margin-right: 10px;"><span><span>返回</span></span></a><% if @current_user %><a href="/reader/write/<%=@b.id%>" class="button dark thumb" style="margin-right: 10px;"><span><span>撰寫心得</span></span></a><% end %></p>
 
 <h1>館藏簡介</h1>
-<div style="float: left; border: 2px solid #222; padding: 2px; margin: 2px;"><img src="<%=url_for_file_column @b, 'cover'%>" width="150"></div>
+<div style="float: left; border: 2px solid #222; padding: 2px; margin: 2px;"><img src="<%=url_for_file_column @b, 'cover'%>" width="150" alt="Book Cover"></div>
 <div style="float: left; padding: 2px; margin: 2px; font-size: 1.5em;">
 	書名：<%=@b.title%><br/>
 	作者：<%=@b.author%><br/>
