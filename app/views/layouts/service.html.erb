@@ -13,6 +13,10 @@
 		<script type="text/javascript" src="/javascripts/jquery-ui.js" charset="utf-8"></script>
 		<script type="text/javascript" src="/javascripts/jrails.js" charset="utf-8"></script>
 		<script type="text/javascript" src="/facebox/facebox.js" charset="utf-8"></script>
+		<title>eLib^2 - Your personal library</title>
+		<% if params[:controller] == 'welcome' && params[:action] == 'index' %>
+		<link rel="alternate" type="application/rss+xml" title="eLib^2 最新上架書籍" href="<%=url_for(:only_path => false, :controller => 'welcome', :action => 'books')%>">
+		<% end %>
 	</head>
 	<body>
 		<div class="container" id="header">
@@ -24,7 +28,7 @@
 					<li <%='class="menu-current"' if @in_homepage_function%>><a href="/">首頁</a></li>
 					<li <%='class="menu-current"' if @in_books_function%>><a href="/books/search">搜尋書籍</a></li>
 					<li <%='class="menu-current"' if @in_reader_function%>><a href="/reader">讀者服務</a></li>
-					<li <%='class="menu-current"' if @in_contact_function%>><a href="#">聯絡我們</a></li>
+					<li <%='class="menu-current"' if @in_contact_function%>><a href="/welcome/contact">聯絡我們</a></li>
 					<% if @current_user && @current_user.permission > 0%>
 					<li class="menu-backstage<%="-current" if @in_admin_function%>"><a href="/admin">後臺區</a></li>
 					<% end %>

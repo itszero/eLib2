@@ -1,0 +1,16 @@
+<h1>聯絡我們</h1>
+<p>我們十分重視讀者的意見，如果您能給我們一些指教那就再好不過了！隨時歡迎您利用下面的表單給我們一些意見喔。</p>
+
+<form action="/welcome/contact" method="post">
+	<p>姓名<br/><input type="text" name="name" value="<%=params[:name]%>" id="name"></p>
+	<div style="float:left;">
+		<p>Email<br/><input type="text" name="email" value="<%=params[:email]%>" id="email"></p>
+	</div>
+	<div style="float:left; margin-left: 20px;">
+		<p>聯絡電話<br/><input type="text" name="phone" value="<%=params[:phone]%>" id="phone"></p>
+	</div>
+	<div style="clear: both;"></div>
+	<p>意見內容<br/><textarea cols="50" rows="25" name="content"><%=params[:content]%></textarea></p>
+	<input type="submit" value="送出意見 &rarr;">
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+</form>

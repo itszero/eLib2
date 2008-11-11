@@ -29,4 +29,21 @@ class WelcomeController < ApplicationController
   def admin
     @in_admin_function = true
   end
+  
+  def books
+    @books = Book.find(:all, :order => "created_at DESC", :limit => 20)
+    headers["Content-Type"] = "application/xml; charset=utf-8"
+    render :layout => false
+  end
+  
+  def contact
+    if request.post?
+      if params[:name] != "" && params[:phone] != "" && params[:email] != "" && params[:content] != ""
+        Notifier.deliver_contact params[:name], params[:email], params[:phone], params[:content]
+        notice_stickie "您的意見我們已經收到了，我們會儘快改善並且與您聯絡。"
+      else
+        error_stickie "請先填滿所有資訊再送出。"
+      end
+    end
+  end
 end

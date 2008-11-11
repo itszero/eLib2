@@ -43,6 +43,9 @@ ActionController::Routing::Routes.draw do |map|
   
   # Coverflow info
   map.connect '/booksinfo.xml', :controller => "books", :action => 'latest_xml'
+  
+  # RSS
+  map.connect '/latest_books.rss', :controller => "welcome", :action => 'books'
 
   # See how all your routes lay out with "rake routes"
 

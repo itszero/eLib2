@@ -1,0 +1,16 @@
+xml.instruct!
+
+xml.rss "version" => "2.0", "xmlns:dc" => "http://purl.org/dc/elements/1.1/" do
+  xml.title "eLib2 最新圖書"
+  xml.link url_for(:only_path => false, :controller => 'welcome')
+  xml.description "為您送上最新上架的書籍資訊，歡迎各位讀者多多利用。"
+  @books.each do |b|
+  	xml.item do
+  		xml.t 
+  		xml.title b.title
+  		xml.guid b.id
+  		xml.link url_for(:only_path => false, :controller => 'books', :action => 'show' , :id => b.id)
+  		xml.description "<img src='#{url_for_file_column(b, 'cover', :only_path => false)}' alt='cover'><br/><br/>#{h(b.content).gsub("\n", "\n<br/>").chars[0..500]}......"
+  	end
+  end
+end
