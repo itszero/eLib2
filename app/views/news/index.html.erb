@@ -19,7 +19,7 @@
 		<% @news.each do |news| %>
 		<p class="blog-date"><%=news.created_at.strftime("%Y年%m月%d日")%></p>
 		<p class="blog-title"><%=news.title%></p>
-		<p class="blog-content"><%=news.content.gsub("\n", "<br/>")%></p>
+		<p class="blog-content"><%=news.content.gsub("\n", "<br/>")%><br/><%=link_to "發表意見(#{news.comments.size})...", :action => :show, :id => news%></p>
 		<% end %>
 	</div>
 </div>

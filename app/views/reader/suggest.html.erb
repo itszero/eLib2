@@ -1,0 +1,13 @@
+<h1>推薦書籍</h1>
+<p class="clearfix"><a href="/reader" class="button green back" style="margin-right: 10px;"><span><span>返回</span></span></a></p>
+<p>歡迎使用本系統推薦圖書館目前尚沒有但是您認為值得收藏的書籍，請寫下列表單即可送出推薦。</p>
+<form action="<%=url_for :action => :suggest%>" method="post" accept-charset="utf-8">
+	<p>書名<br/><input type="text" name="suggest[title]" value="" id="suggest[title]"></p>
+	<p>作者<br/><input type="text" name="suggest[author]" value="" id="suggest[author]"></p>
+	<p>出版社<br/><input type="text" name="suggest[publisher]" value="" id="suggest[publisher]"></p>
+	<p>相關網址<br/><input type="text" name="suggest[url]" value="" id="suggest[url]"></p>
+	<p>理由及相關資訊<br/><textarea name="suggest[reason]" rows="8" cols="40"></textarea></p>
+
+	<p><input type="submit" value="推薦 &rarr;"></p>
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+</form>

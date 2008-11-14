@@ -123,4 +123,27 @@ class BooksController < ApplicationController
     @in_books_function = true
     @books = Book.filter(params[:keyword]).paginate :page => params[:page], :per_page => 10
   end
+  
+  def suggests
+    if params[:do]
+      case params[:do]
+      when "accept" then
+        Suggest.find(params[:id]).accept!
+        notice_stickie "圖書推薦已經同意。"
+      when "reject" then
+        Suggest.find(params[:id]).reject!
+        warning_stickie "圖書推薦退件完成。"
+      when "reset" then
+        Suggest.find(params[:id]).reset!
+        notice_stickie "圖書推薦重新設定為審查中。"
+      when "delete" then
+        Suggest.find(params[:id]).destroy
+        notice_stickie "圖書推薦資料已經刪除。"
+      end
+      
+      redirect_to :back
+    end
+    
+    @suggests = Suggest.find(:all, :order => 'created_at DESC').paginate :page => params[:page], :per_page => 20
+  end
 end

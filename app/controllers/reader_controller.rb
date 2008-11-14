@@ -7,7 +7,8 @@ class ReaderController < ApplicationController
     @in_reader_function = true
     @u = current_user
     @r = RentLog.find(:all, :conditions => ['user_id = ?', @current_user.id], :limit => 5, :order => 'created_at DESC')
-    @c = Comment.find(:all, :conditions => ['user_id = ?', @current_user.id], :order => 'created_at DESC')
+    @c = Comment.find(:all, :conditions => ['user_id = ? and commentable_type = ?', @current_user.id, "Book"], :order => 'created_at DESC')
+    @suggests = Suggest.find(:all, :order => "created_at DESC", :limit => 15)
   end
 
   def rentlogs
@@ -110,5 +111,17 @@ class ReaderController < ApplicationController
     @comment.score = params[:score]
     @comment.save
     redirect_to "/reader/read/#{@comment.id}"
+  end
+  
+  def suggest
+    @in_reader_function = true
+    
+    if request.post?
+      @suggest = Suggest.new(params[:suggest])
+      @suggest.save
+      
+      notice_stickie "書籍推薦送出，請耐心等候審查。"
+      redirect_to :action => :index
+    end
   end
 end

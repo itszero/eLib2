@@ -1,6 +1,7 @@
 class NewsController < ApplicationController
   layout 'service'
-  before_filter :admin_required, :except => [:index, :show]
+  before_filter :admin_required, :except => [:index, :show, :write_comment]
+  before_filter :login_required, :only => [:write_comment]
   
   def index
     @in_reader_function = true
@@ -51,5 +52,24 @@ class NewsController < ApplicationController
       @news = Blog.find(params[:id])
       render :layout => false
     end
+  end
+  
+  def write_comment
+    comment = Comment.new
+    comment.comment = params[:comment]
+    comment.user_id = current_user.id
+    comment.save
+    @news = Blog.find(params[:id])
+    @news.comments << comment
+    
+    notice_stickie "您的意見已經張貼完成。"
+    redirect_to :back
+  end
+  
+  def delete_comment
+    Comment.find(params[:id]).destroy
+    
+    warning_stickie "留言已經刪除。"
+    redirect_to :back
   end
 end

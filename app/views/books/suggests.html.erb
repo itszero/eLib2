@@ -1,0 +1,36 @@
+<h1>圖書推薦</h1>
+<p class="clearfix"><a href="/admin" class="button green back" style="margin-right: 10px;"><span><span>返回選單</span></span></a>
+<div id="book-list" class="table">
+	<div class="thead">
+		<div class="container">
+			<div class="span-6">書名</div>
+			<div class="span-5">出版社</div>
+			<div class="span-5">作者</div>
+			<div class="span-3">狀態</div>
+			<div class="span-4 last">行動</div>
+		</div>
+	</div>	
+
+<% @suggests.each do |s| %>
+	<div class="tbody">
+		<div class="container">
+			<div class="span-6"><%=s.title%></div>
+			<div class="span-5"><%=s.publisher%></div>
+			<div class="span-5"><%=s.author%></div>
+			<div class="span-3"><%if s.accept? %><span color="color: green;">通過<%elsif s.reject?%><span style="color: red;">退回</span><%else%><span>審查中</span><%end%></div>
+			<div class="span-4 last">
+				<p class="clearfix"><a href="/books/suggests/<%=s.id%>?do=accept" class="button alt star" style="margin-right: 10px;" onclick="this.blur();" id="btn-pass<%=s.id%>"><span><span>同意</span></span></a><a href="/books/suggests/<%=s.id%>?do=reject" class="button pink minus"><span><span>退件</span></span></a></p>
+			</div>
+		</div>
+		<div class="container">
+			<div class="span-3">原因：</div>
+			<div class="span-16"><%=s.reason%></div>
+			<div class="span-4 last">
+				<p class="clearfix"><a href="/books/suggests/<%=s.id%>?do=reset" class="button normal back" style="margin-right: 10px;" onclick="this.blur();" id="btn-pass<%=s.id%>"><span><span>重設</span></span></a><a href="/books/suggests/<%=s.id%>?do=delete" class="button dark x"><span><span>刪除</span></span></a></p>
+			</div>
+		</div>
+	</div>
+<% end %>
+</div>
+
+<%=will_paginate @suggests, :previous_label => '&laquo; 上一頁', :next_label => '下一頁 &raquo;'%>

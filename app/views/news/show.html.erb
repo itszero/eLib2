@@ -12,3 +12,23 @@
 		<p class="blog-content"><%=@news.content.gsub("\n", "<br/>")%></p>
 	</div>
 </div>
+<% if @news.comments.size > 0 %>
+<hr/>
+<h3>意見</h3>
+<% i = 1
+   @news.comments.each do |c| %>
+<p style="margin-left: 2em;"><%=c.comment%></p>
+<p><%=i%>. 由 <%=c.user.name%> 於 <%=c.created_at.strftime("%Y-%m-%d %H:%M")%> 發表 <% if current_user.permission > 1 %>| <%=link_to '刪除', {:action => 'delete_comment', :id => c.id}, :confirm => "您確定要刪除這則留言嗎？"%><%end%></p>
+<hr/>
+<% i += 1
+   end %>
+<% end %>
+<% if logged_in? %>
+<form action="<%=url_for :action => :write_comment%>" method="post" accept-charset="utf-8">
+<h3>發表意見</h3>
+	<p>意見<br/><textarea name="comment" rows="8" cols="40"></textarea></p>
+	<p><input type="submit" value="送出 &rarr;"></p>
+	<input type="hidden" name="id" value="<%=@news.id%>" id="id">
+	<input type="hidden" name="authenticity_token" value="<%=form_authenticity_token%>" id="authenticity_token">
+</form>
+<% end %>
